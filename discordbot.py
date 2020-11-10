@@ -4,8 +4,10 @@ import traceback
 import connection_DB
 
 
+
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
+table = connection_DB.tables
 
 
 @bot.event
@@ -18,7 +20,11 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def ping(ctx):
     # await ctx.send('pong')
-    await ctx.send(connection_DB.db_url)
+
+    table.insert({"test": "test"})
+
+    for row in table.find():
+        await ctx.send(row)
 
 
 bot.run(token)
