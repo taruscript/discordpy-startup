@@ -2,6 +2,8 @@ from discord.ext import commands
 import os
 import traceback
 import connection_DB
+import send_format
+
 
 
 
@@ -9,6 +11,10 @@ bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 table = connection_DB.table
 
+def check_arg_format(arg):
+    arg_count = len(arg.split())
+    if arg_count != 3:     
+        raise TypeError("引数のフォーマットが正しくありません")
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -18,13 +24,16 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def ping(ctx):
-    # await ctx.send('pong')
+async def mtg(ctx, *, arg):
+    check_arg_format(arg)
+    team, start_date, end_date = arg.split()
+    table.insert({"team": team, "start_date": start_date, "end_date": end_date})
+    await ctx.send(send_format.insert_msg.format(team, start_date, end_date))
 
-    table.insert({"test": "test"})
 
+@bot.command()
+async def remind(ctx):
     for row in table.find():
-        await ctx.send(row)
-
+        await ctx.send(send_format.remind_msg.format(row["team"], row["start_date"], row["end_date"]))
 
 bot.run(token)
