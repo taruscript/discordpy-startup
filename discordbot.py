@@ -7,7 +7,7 @@ import send_format
 
 
 
-bot = commands.Bot(command_prefix='/')
+bot = commands.Bot(command_prefix='!')
 token = os.environ['DISCORD_BOT_TOKEN']
 table = connection_DB.table
 
