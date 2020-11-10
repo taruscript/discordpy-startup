@@ -37,8 +37,6 @@ async def remind(ctx):
     for row in table.find():
         await ctx.send(send_format.remind_msg.format(row["team"], row["start_date"], row["end_date"]))
 
-@bot.command()
-async def secret(ctx):
-    await ctx.send("https://www.sbbit.jp/eventinfo/image/49408/WAR_9364.jpg")
+
 
 bot.run(token)
