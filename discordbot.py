@@ -7,7 +7,7 @@ import connection_DB
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
-table = connection_DB.tables
+table = connection_DB.table
 
 
 @bot.event
