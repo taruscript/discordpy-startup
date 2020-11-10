@@ -1,6 +1,8 @@
 from discord.ext import commands
 import os
 import traceback
+import connection_DB
+
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
@@ -15,7 +17,8 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send('pong')
+    # await ctx.send('pong')
+    await ctx.send(connection_DB.db_url)
 
 
 bot.run(token)
