@@ -27,6 +27,7 @@ async def on_command_error(ctx, error):
 async def mtg(ctx, *, arg):
     check_arg_format(arg)
     team, start_date, end_date = arg.split()
+
     table.insert({"team": team, "start_date": start_date, "end_date": end_date})
     await ctx.send(send_format.insert_msg.format(team, start_date, end_date))
 
@@ -35,5 +36,9 @@ async def mtg(ctx, *, arg):
 async def remind(ctx):
     for row in table.find():
         await ctx.send(send_format.remind_msg.format(row["team"], row["start_date"], row["end_date"]))
+
+@bot.command()
+async def secret(ctx):
+    await ctx.send("https://www.sbbit.jp/eventinfo/image/49408/WAR_9364.jpg")
 
 bot.run(token)
